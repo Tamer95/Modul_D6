@@ -1,0 +1,26 @@
+{% extends 'default.html' %}
+{% load my_filters %}
+<!-- Название у нас будет Новости -->
+{% block title %}
+Добавление публикаций
+{% endblock title %}
+
+
+<!-- В контенте на странице мы выводим все публикации -->
+{% block content %}
+<!--не актуально после создания системы логина-->
+{% if is_not_author %}
+Для добавления публикаций Вам нужно быть автором. <br>
+<button> <a class="btn btn-primary" href="/news/becomeauthor/"> Стать автором </a> </button>
+{% endif %}
+{% if not is_not_author %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }} <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <br>
+    <input type="submit" value="Добавить публикацию">
+</form>
+{% endif %}
+
+{% endblock content %}
